@@ -21,7 +21,7 @@ if (!
 
 # --- SYSTEM TWEAK FUNCTIONS ---
 function ApplySystemTweaks {
-    powercfg -duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61
+    # powercfg -duplicatescheme e9a42b02-d5df-448d-aa00-03f14749eb61
    
     Get-AppxPackage -Name "MicrosoftWindows.Client.WebExperience" | Remove-AppxPackage
 
@@ -74,43 +74,28 @@ $programs = @(
 		"9PM5VM1S3VMQ"                       
 		"Google.GoogleDrive"
 		"OBSProject.OBSStudio"
-		"AppWork.JDownloader"
-		"LocalSend.LocalSend"
-		"qBittorrent.qBittorrent"
-		"Unity.Unity.2023"
 		"Python.Python.3.12"
 		"GitHub.GitHubDesktop"
-		"nepnep.neofetch-win"
-		"MartinFinnerup.YouTubeMusicforDesktop"
-		"XP8K2L36VP0QMB"
-		"OpenJS.NodeJS"
 		"Notion.Notion"
 		"CondaForge.Miniforge3"
 		"GitHub.cli"
 		"Node.js.LTS"
 		"Discord.Discord"
 		"Insomnia.Insomnia"
+"Insomnia.Insomnia"
+"KeePassXCTeam.KeePassXC"
 "anki.anki"
+"WinSCP.WinSCP"
 "RARLab.WinRAR"                       
-"Python.Python.3"                       
-"Google.Chrome"
 "Valve.Steam"
-"Microsoft.WindowsTerminal"  
-"Microsoft.PowerShell"          
-"7zip.7zip"                         
+"Notion.NotionCalendar"
 "JetBrains.Toolbox"                         
 "Microsoft.VisualStudio.2022.Community"                         
 "Google.DartSDK"
-"OpenJS.Node.js"                  
 "Docker.DockerDesktop"
 "Microsoft.VisualStudioCode"
-"Neovim.Neovim"
 "OpenVPNTechnologies.OpenVPN"
-"Element.Element"
-"JanDeDobbeleer.OhMyPosh"
-"glzr-io.glazewm"
 "Microsoft.PowerToys"
-"Notion.NotionCalendar"
 )
 
 
@@ -123,26 +108,6 @@ foreach ($program in $programs) {
                 Write-Host "${program} installed successfully." -ForegroundColor Cyan
         } catch {
             Write-Host "Failed to install ${program}: $($_.Exception.Message)" -ForegroundColor Red
-        }
-}
-
-# Define a list of PowerShell modules to install
-$modules = @(
-        "Terminal-Icons",
-        "Posh-Git",
-        "PSReadline",
-        "Microsoft.PowerShell.SecretManagement",
-        "Microsoft.PowerShell.SecretStore"
-        )
-
-# Install each module from PSGallery
-foreach ($module in $modules) {
-    Write-Host "Installing PowerShell module ${module}..." -ForegroundColor Green
-        try {
-            Install-Module -Name $module -Repository PSGallery -Force -AllowClobber -Scope CurrentUser
-                Write-Host "${module} installed successfully." -ForegroundColor Cyan
-        } catch {
-            Write-Host "Failed to install ${module}: $($_.Exception.Message)" -ForegroundColor Red
         }
 }
 
@@ -181,6 +146,7 @@ $bloatware = @(
                 }
         }
 
+<# 
 # Symlink specified files to their target locations
 $filesToLink = @(
         @{ Source = "$HOME/.dotfiles/windows/glaze/config.yaml"; Target = "$HOME/.glzr/glazewm/config.yaml" }
@@ -215,6 +181,7 @@ foreach ($file in $filesToLink) {
             Write-Host "Failed to create symlink for ${sourcePath}: $($_.Exception.Message)" -ForegroundColor Red
         }
 }
+#>
 
 # Install Kali Linux and Ubuntu using WSL
 Write-Host "Installing Kali Linux (this may take a few minutes)..." -ForegroundColor Green
