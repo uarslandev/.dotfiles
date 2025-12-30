@@ -77,6 +77,7 @@ $programs = @(
 		"Python.Python.3.12"
 		"GitHub.GitHubDesktop"
 		"Notion.Notion"
+		"MongoDB.Compass.Full"
 		"CondaForge.Miniforge3"
 		"GitHub.cli"
 		"Node.js.LTS"
@@ -111,48 +112,44 @@ foreach ($program in $programs) {
         }
 }
 
-# Remove Windows bloatware using winget
+# List of programs to uninstall (expand as needed)
 $bloatware = @(
-        "Microsoft.OneDrive",
-        "9NFTCH6J7FHV",
-        "9NBLGGH4R32N",
-        "9NRX63209R7B",
-        "Microsoft.XboxApp",
-        "Microsoft.XboxGameOverlay",
-        "Microsoft.XboxGamingOverlay",
-        "Microsoft.YourPhone",
-        "Microsoft.ZuneMusic",
-        "Microsoft.ZuneVideo",
-        "Microsoft.BingWeather",
-        "Microsoft.WindowsAlarms",
-        "Microsoft.WindowsCamera",
-        "Microsoft.WindowsMaps",
-        "Microsoft.WindowsFeedbackHub",
-        "Microsoft.WindowsSoundRecorder",
-        "Microsoft.3DViewer",
-        "Microsoft.MixedReality.Portal",
-        "Microsoft.MicrosoftSolitaireCollection",
-        "Microsoft.People",
-        "Microsoft.SkypeApp"
-        )
+    "Microsoft.OneDrive",
+    "Microsoft.BingNews_8wekyb3d8bbwe",
+    "Microsoft.BingSearch_8wekyb3d8bbwe",
+    "Microsoft.MicrosoftSolitaireCollection",
+    "Microsoft.MicrosoftStickyNotes",
+    "Microsoft.GetHelp_8wekyb3d8bbwe",
+    "Microsoft.GamingApp_8wekyb3d8bbwe",
+    "Microsoft.Windows.Photos_8wekyb3d8bbwe",
+    "Microsoft.WindowsStore_8wekyb3d8bbwe",
+    "Microsoft.Xbox.TCUI_8wekyb3d8bbwe",
+    "Microsoft.XboxGamingOverlay_8wekyb3d8bbwe",
+    "Microsoft.YourPhone_8wekyb3d8bbwe",
+    "Microsoft.WindowsFeedbackHub_8wekyb3d8bbwe",
+    "Microsoft.WindowsCalculator_8wekyb3d8bbwe",
+    "Microsoft.WindowsSoundRecorder_8wekyb3d8bbwe"
+)
 
-        foreach ($program in $bloatware) {
-            Write-Host "Uninstalling ${program}..." -ForegroundColor Green
-                try {
-                    winget uninstall --id "${program}" --silent
-                        Write-Host "${program} removed successfully." -ForegroundColor Yellow
-                } catch {
-                    Write-Host "Failed to uninstall ${program}: $($_.Exception.Message)" -ForegroundColor Red
-                }
-        }
+# Loop through each program and uninstall it
+foreach ($program in $bloatware) {
+    Write-Host "Uninstalling ${program}..." -ForegroundColor Green
+    try {
+        # Attempt to uninstall the program
+        winget uninstall --id "${program}" --silent
+        Write-Host "${program} removed successfully." -ForegroundColor Yellow
+    } catch {
+        Write-Host "Failed to uninstall ${program}: $($_.Exception.Message)" -ForegroundColor Red
+    }
+}
 
-<# 
+ 
 # Symlink specified files to their target locations
 $filesToLink = @(
-        @{ Source = "$HOME/.dotfiles/windows/glaze/config.yaml"; Target = "$HOME/.glzr/glazewm/config.yaml" }
-        @{ Source = "$HOME/.dotfiles/windows/powershell/Microsoft.PowerShell_profile.ps1"; Target = "$HOME/Documents/WindowsPowerShell/Microsoft.PowerShell_profile.ps1" }
-        @{ Source = "$HOME/.dotfiles/windows/.wezterm.lua"; Target = "$HOME/.wezterm.lua" }
-        @{ Source = "$HOME/.dotfiles/windows/PowerToys/settings.ptb"; Target = "$HOME/PowerToys/Backup/settings.ptb" }
+#        @{ Source = "$HOME/.dotfiles/windows/glaze/config.yaml"; Target = "$HOME/.glzr/glazewm/config.yaml" }
+        @{ Source = "$HOME/.dotfiles/powershell/Microsoft.PowerShell_profile.ps1"; Target = "$HOME/Documents/WindowsPowerShell/Microsoft.PowerShell_profile.ps1" }
+#        @{ Source = "$HOME/.dotfiles/windows/.wezterm.lua"; Target = "$HOME/.wezterm.lua" }
+#        @{ Source = "$HOME/.dotfiles/windows/PowerToys/settings.ptb"; Target = "$HOME/PowerToys/Backup/settings.ptb" }
         )
 
 foreach ($file in $filesToLink) {
@@ -181,7 +178,6 @@ foreach ($file in $filesToLink) {
             Write-Host "Failed to create symlink for ${sourcePath}: $($_.Exception.Message)" -ForegroundColor Red
         }
 }
-#>
 
 # Install Kali Linux and Ubuntu using WSL
 Write-Host "Installing Kali Linux (this may take a few minutes)..." -ForegroundColor Green
